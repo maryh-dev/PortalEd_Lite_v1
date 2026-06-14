@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
-    <color name="azul_PortalEd">#1565C0</color>
+        <color name="azul_primario">#0D47A1</color>
+        <color name="azul_secundario">#1565C0</color>
+        <color name="fundo">#F5F7FA</color>
+        <color name="superficie">#FFFFFF</color>
+        <color name="borda_divisoria">#E1E7EF</color>
+        <color name="texto_principal">#0F172A</color>
+        <color name="texto_secundario">#64748B</color>
+        <color name="texto_sobre_azul">#FFFFFF</color>
 </resources>

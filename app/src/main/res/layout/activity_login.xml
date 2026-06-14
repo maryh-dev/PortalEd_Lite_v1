@@ -11,7 +11,7 @@
         android:id="@+id/viewTopo"
         android:layout_width="0dp"
         android:layout_height="280dp"
-        android:background="@color/azul_PortalEd"
+        android:background="@drawable/gradiente_topo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -19,27 +19,14 @@
 
     <ImageView
         android:id="@+id/ivLogo"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="60dp"
+        android:layout_width="200dp"
+        android:layout_height="180dp"
+        app:layout_constraintBottom_toBottomOf="@+id/viewTopo"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/viewTopo"
-        app:srcCompat="@drawable/ic_launcher_foreground" />
-
-    <TextView
-        android:id="@+id/tvNomeApp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="PortalEd"
-        android:textColor="@color/white"
-        android:textSize="34sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ivLogo" />
+        app:srcCompat="@drawable/logo_portaled" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilEmail"
@@ -49,9 +36,10 @@
         android:layout_marginTop="40dp"
         android:layout_marginEnd="24dp"
         android:hint="Email"
-        android:textColorHint="@color/azul_PortalEd"
-        app:boxStrokeColor="@color/azul_PortalEd"
-        app:hintTextColor="@color/azul_PortalEd"
+        android:textColorHint="@color/texto_secundario"
+        app:hintTextColor="@color/hint_text_color"
+        app:boxStrokeColor="@color/box_stroke_color"
+        app:cursorColor="@color/azul_secundario"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/viewTopo">
@@ -61,8 +49,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text|textEmailAddress"
-            android:textColor="@color/azul_PortalEd"
-            android:textColorLink="@color/azul_PortalEd" />
+            android:textColor="@color/texto_principal" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -73,9 +60,10 @@
         android:layout_marginTop="32dp"
         android:layout_marginEnd="24dp"
         android:hint="Senha"
-        android:textColorHint="@color/azul_PortalEd"
-        app:boxStrokeColor="@color/azul_PortalEd"
-        app:hintTextColor="@color/azul_PortalEd"
+        android:textColorHint="@color/texto_secundario"
+        app:hintTextColor="@color/hint_text_color"
+        app:boxStrokeColor="@color/box_stroke_color"
+        app:cursorColor="@color/azul_secundario"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tilEmail"
@@ -86,8 +74,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text|textPassword"
-            android:textColor="@color/azul_PortalEd"
-            android:textColorLink="@color/azul_PortalEd" />
+            android:textColor="@color/texto_principal" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
@@ -97,9 +84,9 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="24dp"
-        android:backgroundTint="@color/azul_PortalEd"
+        android:backgroundTint="@color/azul_secundario"
         android:text="Entrar"
-        android:textColor="@color/white"
+        android:textColor="@color/texto_sobre_azul"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tilSenha" />
@@ -110,7 +97,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:text="Esqueceu a senha?"
-        android:textColor="@color/azul_PortalEd"
+        android:textColor="@color/texto_secundario"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnEntrar" />
@@ -121,7 +108,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:text="Criar nova conta"
-        android:textColor="@color/azul_PortalEd"
+        android:textColor="@color/texto_secundario"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvEsqueciSenha" />
