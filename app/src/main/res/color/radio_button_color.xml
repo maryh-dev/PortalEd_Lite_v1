@@ -1,0 +1,4 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:color="@color/azul_secundario" android:state_checked="true"/>
+    <item android:color="@color/borda_divisoria" android:state_checked="false"/>
+</selector>

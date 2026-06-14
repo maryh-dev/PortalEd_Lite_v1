@@ -1,0 +1,10 @@
+<resources>
+    <color name="azul_primario">#1565C0</color>
+    <color name="azul_secundario">#42A5F5</color>
+    <color name="fundo">#0F172A</color>
+    <color name="superficie">#1E293B</color>
+    <color name="borda_divisoria">#334155</color>
+    <color name="texto_principal">#F1F5F9</color>
+    <color name="texto_secundario">#94A3B8</color>
+    <color name="texto_sobre_azul">#FFFFFF</color>
+</resources>
