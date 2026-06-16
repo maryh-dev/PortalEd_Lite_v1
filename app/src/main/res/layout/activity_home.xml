@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
@@ -27,16 +26,15 @@
         android:layout_marginTop="16dp"
         android:src="@drawable/ic_menu"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:tint="@color/texto_sobre_azul" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tvNomeApp"
-        style="@style/NomeApp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="PortalEd"
+        style="@style/NomeApp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -49,8 +47,7 @@
         android:layout_marginEnd="16dp"
         android:src="@drawable/ic_notificacoes"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:tint="@color/texto_sobre_azul" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <!-- BARRA DE BUSCA -->
     <androidx.cardview.widget.CardView
@@ -58,9 +55,9 @@
         android:layout_width="0dp"
         android:layout_height="48dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="54dp"
+        android:layout_marginTop="64dp"
         android:layout_marginEnd="16dp"
-        app:cardBackgroundColor="@color/superficie"
+        app:cardBackgroundColor="@color/borda_divisoria"
         app:cardCornerRadius="24dp"
         app:cardElevation="0dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -77,20 +74,21 @@
 
             <ImageView
                 android:id="@+id/ivLupa"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/ic_search"
-                app:tint="@color/hint_text_color" />
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/ic_search" />
 
             <EditText
                 android:id="@+id/etBuscar"
-                style="@style/TextoCampo"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:background="@android:color/transparent"
-                android:hint="Buscar cursos, aulas..."
-                android:singleLine="true" />
+                android:fontFamily="@font/poppins_regular"
+                android:hint="Buscar cursos..."
+                android:inputType="text"
+                android:singleLine="true"
+                android:textColor="@color/texto_principal"
+                android:textSize="14sp" />
 
         </LinearLayout>
 
@@ -100,14 +98,22 @@
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNav"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="56dp"
+        android:background="@color/azul_secundario"
+        android:orientation="horizontal"
+        app:itemPaddingBottom="10dp"
+        app:itemPaddingTop="25dp"
+        app:labelVisibilityMode="labeled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scrollView2"
+        app:measureBottomPaddingFromLabelBaseline="false"
         app:menu="@menu/bottom_nav_menu" />
 
     <!-- CONTEÚDO ROLÁVEL -->
     <ScrollView
+        android:id="@+id/scrollView2"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@id/bottomNav"
@@ -125,7 +131,7 @@
             <TextView
                 android:id="@+id/tvContinueEstudando"
                 style="@style/TituloSecao"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:text="Continue Estudando" />
@@ -151,7 +157,7 @@
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:background="@color/azul_secundario"
-                        app:srcCompat="@drawable/ic_java"
+                        app:srcCompat="@drawable/ic_default_java"
                         app:tint="@color/texto_sobre_azul" />
 
                     <LinearLayout
@@ -166,7 +172,7 @@
                             style="@style/TextoCardTitulo"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Java Avançado" />
+                            android:text="Java" />
 
                         <TextView
                             android:id="@+id/tvInfoCursoAtual"
@@ -174,7 +180,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="6dp"
-                            android:text="Marco Silva - faltam 1h30" />
+                            android:text="Faltam 1h30" />
 
                         <ProgressBar
                             android:id="@+id/pbProgressoCursoAtual"
@@ -191,7 +197,7 @@
 
             </androidx.cardview.widget.CardView>
 
-            <!-- SEÇÃO: CATEGORIAS (estático, como você já tinha) -->
+            <!-- SEÇÃO: CATEGORIAS -->
             <TextView
                 android:id="@+id/tvCategorias"
                 style="@style/TituloSecao"
@@ -216,10 +222,10 @@
 
                     <ImageView
                         android:id="@+id/ivCategoriaTecnologia"
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
+                        android:layout_width="88dp"
+                        android:layout_height="64dp"
                         android:background="@color/azul_secundario"
-                        android:src="@drawable/ic_computer"
+                        android:src="@drawable/ic_laptop"
                         app:tint="@color/texto_sobre_azul" />
 
                     <TextView
@@ -244,10 +250,10 @@
 
                     <ImageView
                         android:id="@+id/ivCategoriaDesign"
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        android:background="@color/azul_primario"
-                        android:src="@drawable/ic_brush"
+                        android:layout_width="88dp"
+                        android:layout_height="64dp"
+                        android:background="@color/azul_secundario"
+                        android:src="@drawable/ic_colors"
                         app:tint="@color/texto_sobre_azul" />
 
                     <TextView

@@ -149,7 +149,7 @@
 
             <Button
                 android:id="@+id/btnGerenciarUsuarios"
-                style="@style/BotaoSecundario"
+                style="@style/BotaoPrimario"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Gerenciar Usuários" />

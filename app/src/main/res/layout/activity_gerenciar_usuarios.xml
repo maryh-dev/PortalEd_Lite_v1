@@ -78,6 +78,7 @@
                 android:layout_marginStart="8dp"
                 android:background="@android:color/transparent"
                 android:hint="Buscar usuário..."
+                android:inputType="text"
                 android:singleLine="true" />
 
         </LinearLayout>

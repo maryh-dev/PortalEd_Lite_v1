@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.core.graphics.Insets;
@@ -47,6 +48,7 @@ public class CursosActivity extends BaseAlunoActivity {
         configurarBottomNav(findViewById(R.id.bottomNav), R.id.nav_cursos);
         carregarDados();
         configurarListeners();
+
     }
 
     private void inicializarViews() {
@@ -92,4 +94,5 @@ public class CursosActivity extends BaseAlunoActivity {
             @Override public void afterTextChanged(Editable s) {}
         });
     }
+
 }

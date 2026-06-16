@@ -12,6 +12,7 @@
         android:hint="Título do Curso">
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etTituloCurso"
+            style="@style/TextoCampo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textCapSentences" />
@@ -25,6 +26,7 @@
         android:hint="Categoria">
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etCategoriaCurso"
+            style="@style/TextoCampo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textCapSentences" />
@@ -38,6 +40,7 @@
         android:hint="Descrição">
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etDescricaoCurso"
+            style="@style/TextoCampo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textMultiLine"

@@ -37,8 +37,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="-44dp"
                 android:background="@color/azul_secundario"
-                android:src="@drawable/ic_menu"
-                app:tint="@color/texto_sobre_azul" />
+                android:src="@drawable/ic_conta" />
 
             <TextView
                 android:id="@+id/tvNomePerfil"
@@ -85,7 +84,8 @@
                         android:id="@+id/etNomePerfil"
                         style="@style/TextoCampo"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:inputType="textPersonName" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -107,7 +107,7 @@
 
                 <Button
                     android:id="@+id/btnSalvarPerfil"
-                    style="@style/BotaoSecundario"
+                    style="@style/BotaoPrimario"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
@@ -115,7 +115,7 @@
 
                 <Button
                     android:id="@+id/btnAlterarSenha"
-                    style="@style/BotaoSecundario"
+                    style="@style/BotaoPrimario"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
@@ -149,7 +149,9 @@
                         android:id="@+id/switchNotificacoes"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:checked="true" />
+                        android:checked="true"
+                        android:thumbTint="@color/azul_secundario"
+                        android:trackTint="@color/azul_secundario" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -171,7 +173,9 @@
                     <androidx.appcompat.widget.SwitchCompat
                         android:id="@+id/switchModoEscuro"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:thumbTint="@color/azul_secundario"
+                        android:trackTint="@color/azul_secundario" />
                 </LinearLayout>
 
                 <!-- BOTÃO SAIR -->

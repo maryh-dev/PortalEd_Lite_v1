@@ -9,7 +9,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/main"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         tools:context=".autenticacao.CadastroActivity">
 
         <View
@@ -24,10 +24,10 @@
 
         <TextView
             android:id="@+id/tvTituloCadastro"
-            style="@style/TituloTela"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Cadastro"
+            style="@style/TituloTela"
             app:layout_constraintBottom_toBottomOf="@+id/viewTopoCadastro"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/viewTopoCadastro"
@@ -41,11 +41,7 @@
             android:layout_marginTop="32dp"
             android:layout_marginEnd="24dp"
             android:hint="Nome"
-            android:fontFamily="@font/poppins_regular"
-            android:textColorHint="@color/texto_secundario"
-            app:hintTextColor="@color/hint_text_color"
-            app:boxStrokeColor="@color/box_stroke_color"
-            app:cursorColor="@color/azul_secundario"
+            style="@style/CampoTexto"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/viewTopoCadastro">
@@ -66,11 +62,7 @@
             android:layout_marginTop="24dp"
             android:layout_marginEnd="24dp"
             android:hint="Email"
-            android:fontFamily="@font/poppins_regular"
-            android:textColorHint="@color/texto_secundario"
-            app:hintTextColor="@color/hint_text_color"
-            app:boxStrokeColor="@color/box_stroke_color"
-            app:cursorColor="@color/azul_secundario"
+            style="@style/CampoTexto"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tilNome">
@@ -91,11 +83,7 @@
             android:layout_marginTop="24dp"
             android:layout_marginEnd="24dp"
             android:hint="Senha"
-            android:fontFamily="@font/poppins_regular"
-            android:textColorHint="@color/texto_secundario"
-            app:hintTextColor="@color/hint_text_color"
-            app:boxStrokeColor="@color/box_stroke_color"
-            app:cursorColor="@color/azul_secundario"
+            style="@style/CampoTexto"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tilEmail"
@@ -117,11 +105,7 @@
             android:layout_marginTop="24dp"
             android:layout_marginEnd="24dp"
             android:hint="Confirmar Senha"
-            android:fontFamily="@font/poppins_regular"
-            android:textColorHint="@color/texto_secundario"
-            app:hintTextColor="@color/hint_text_color"
-            app:boxStrokeColor="@color/box_stroke_color"
-            app:cursorColor="@color/azul_secundario"
+            style="@style/CampoTexto"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tilSenha"
@@ -152,8 +136,8 @@
                 android:layout_height="wrap_content"
                 android:checked="true"
                 android:text="Aluno"
-                android:fontFamily="@font/poppins_regular"
                 android:textColor="@color/texto_principal"
+                android:fontFamily="@font/poppins_regular"
                 app:buttonTint="@color/radio_button_color" />
 
             <RadioButton
@@ -162,8 +146,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:text="Administrador"
-                android:fontFamily="@font/poppins_regular"
                 android:textColor="@color/texto_principal"
+                android:fontFamily="@font/poppins_regular"
                 app:buttonTint="@color/radio_button_color" />
 
         </RadioGroup>
@@ -176,15 +160,12 @@
             android:layout_marginTop="24dp"
             android:layout_marginEnd="24dp"
             android:hint="Código do Criador"
-            android:fontFamily="@font/poppins_regular"
-            android:textColorHint="@color/texto_secundario"
-            app:hintTextColor="@color/hint_text_color"
-            app:boxStrokeColor="@color/box_stroke_color"
-            app:cursorColor="@color/azul_secundario"
+           style="@style/CampoTexto"
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/rgTipoConta">
+            app:layout_constraintTop_toBottomOf="@+id/rgTipoConta"
+            app:passwordToggleEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etCodigoCriador"
@@ -195,13 +176,13 @@
 
         <Button
             android:id="@+id/btnCadastrar"
-            style="@style/BotaoPrimario"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="32dp"
             android:layout_marginEnd="24dp"
             android:text="Cadastrar"
+            style="@style/BotaoPrimario"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tilCodigoCriador" />

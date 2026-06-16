@@ -16,23 +16,22 @@
 
     <TextView
         android:id="@+id/tvTituloAula"
+        style="@style/TextoCardTitulo"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
         android:layout_marginEnd="12dp"
         android:text="Título da Aula"
-        android:textColor="@color/texto_principal"
-        android:textSize="16sp"
         app:layout_constraintEnd_toStartOf="@+id/ivPlayAula"
         app:layout_constraintStart_toEndOf="@+id/ivStatusAula"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tvDuracaoAula"
+        style="@style/TextoCardSecundario"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="10:00"
-        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/tvTituloAula"
         app:layout_constraintStart_toStartOf="@+id/tvTituloAula"

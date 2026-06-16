@@ -18,10 +18,10 @@
 
     <TextView
         android:id="@+id/tvTituloRecuperar"
-        style="@style/TituloTela"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Recuperar Senha"
+        style="@style/TituloTela"
         app:layout_constraintBottom_toBottomOf="@+id/viewTopoRecuperar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/viewTopoRecuperar"
@@ -29,13 +29,13 @@
 
     <TextView
         android:id="@+id/tvInstrucao"
-        style="@style/TextoCardSecundario"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="24dp"
         android:text="Enviaremos um link de recuperação para o email cadastrado."
+        style="@style/TextoCardSecundario"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/viewTopoRecuperar" />
@@ -47,12 +47,8 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="24dp"
-        android:fontFamily="@font/poppins_regular"
         android:hint="Digite seu email"
-        android:textColorHint="@color/texto_secundario"
-        app:boxStrokeColor="@color/box_stroke_color"
-        app:cursorColor="@color/azul_secundario"
-        app:hintTextColor="@color/hint_text_color"
+       style="@style/CampoTexto"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvInstrucao">
@@ -67,13 +63,13 @@
 
     <Button
         android:id="@+id/btnEnviar"
-        style="@style/BotaoPrimario"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="24dp"
         android:text="Enviar"
+        style="@style/BotaoPrimario"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tilEmailRecuperacao" />

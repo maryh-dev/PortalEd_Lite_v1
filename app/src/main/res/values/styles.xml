@@ -23,14 +23,14 @@
     </style>
 
     <style name="TextoCardTitulo">
-        <item name="android:textSize">14sp</item>
+        <item name="android:textSize">16sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/texto_principal</item>
         <item name="android:fontFamily">@font/poppins_bold</item>
     </style>
 
     <style name="TextoCardSecundario">
-        <item name="android:textSize">12sp</item>
+        <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/texto_secundario</item>
         <item name="android:fontFamily">@font/poppins_regular</item>
     </style>
@@ -44,27 +44,18 @@
         <item name="cornerRadius">24dp</item>
     </style>
 
-    <style name="BotaoSecundario">
-        <item name="android:textSize">16sp</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:textColor">@color/texto_sobre_azul</item>
-        <item name="android:backgroundTint">@color/azul_primario</item>
-        <item name="android:fontFamily">@font/poppins_bold</item>
-        <item name="cornerRadius">24dp</item>
-    </style>
-
     <style name="BotaoDanger">
         <item name="android:textSize">16sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/texto_sobre_azul</item>
-        <item name="android:backgroundTint">#D32F2F</item>
+        <item name="android:backgroundTint">#F51919</item>
         <item name="android:fontFamily">@font/poppins_bold</item>
         <item name="cornerRadius">24dp</item>
     </style>
 
     <style name="TextoLink">
-        <item name="android:textSize">13sp</item>
-        <item name="android:textColor">@color/texto_secundario</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/azul_secundario</item>
         <item name="android:fontFamily">@font/poppins_regular</item>
     </style>
 
@@ -72,6 +63,13 @@
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/texto_principal</item>
         <item name="android:fontFamily">@font/poppins_regular</item>
+    </style>
+
+    <style name="CampoTexto">
+        <item name="android:textColorHint">@color/texto_secundario</item>
+        <item name="boxStrokeColor">@color/box_stroke_color</item>
+        <item name="cursorColor">@color/azul_secundario</item>
+        <item name="hintTextColor">@color/hint_text_color</item>
     </style>
 
 </resources>

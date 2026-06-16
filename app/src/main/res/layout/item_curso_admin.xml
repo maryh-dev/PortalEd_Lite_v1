@@ -28,19 +28,17 @@
 
             <TextView
                 android:id="@+id/tvTituloCursoAdmin"
+                style="@style/TextoCardTitulo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Título do Curso"
-                android:textColor="@color/texto_principal"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+                android:text="Título do Curso" />
 
             <TextView
                 android:id="@+id/tvCategoriaCursoAdmin"
+                style="@style/TextoCardSecundario"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Categoria"
-                android:textSize="13sp" />
+                android:text="Categoria" />
         </LinearLayout>
 
         <ImageView
