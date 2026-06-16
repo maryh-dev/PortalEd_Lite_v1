@@ -44,6 +44,17 @@
         <item name="cornerRadius">24dp</item>
     </style>
 
+    <style name="BotaoSecundario">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/azul_secundario</item>
+        <item name="android:backgroundTint">@color/superficie</item>
+        <item name="android:fontFamily">@font/poppins_bold</item>
+        <item name="cornerRadius">24dp</item>
+        <item name="strokeColor">@color/azul_secundario</item>
+        <item name="strokeWidth">2dp</item>
+    </style>
+
     <style name="BotaoDanger">
         <item name="android:textSize">16sp</item>
         <item name="android:textStyle">bold</item>

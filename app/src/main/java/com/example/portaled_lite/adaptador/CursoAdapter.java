@@ -35,8 +35,19 @@ public class CursoAdapter extends BaseAdapter<Curso, CursoAdapter.CursoViewHolde
     public void onBindViewHolder(@NonNull CursoViewHolder holder, int position) {
         Curso curso = listaExibida.get(position);
         holder.tvTitulo.setText(curso.getTitulo());
-        holder.tvProfessor.setText(curso.getCategoria()); // Usando categoria como exemplo de professor por enquanto
-        // holder.ivCapa.setImageResource(...); // TODO: Carregar imagem
+        holder.tvProfessor.setText(curso.getCategoria());
+
+        // Carregar imagem baseada na categoria ou na string armazenada no modelo (imagemUrl)
+        String capa = curso.getImagemUrl();
+        if (capa != null && capa.toLowerCase().contains("figma")) {
+            holder.ivCapa.setImageResource(R.drawable.ic_colors);
+        } else if (capa != null && (capa.toLowerCase().contains("java") || capa.toLowerCase().contains("android") || capa.toLowerCase().contains("backend") || capa.toLowerCase().contains("laptop"))) {
+            holder.ivCapa.setImageResource(R.drawable.ic_laptop);
+        } else if (curso.getCategoria().equalsIgnoreCase("Design")) {
+            holder.ivCapa.setImageResource(R.drawable.ic_colors);
+        } else {
+            holder.ivCapa.setImageResource(R.drawable.ic_laptop);
+        }
 
         holder.itemView.setOnClickListener(v -> {
             if (listener != null) listener.onItemClick(position);

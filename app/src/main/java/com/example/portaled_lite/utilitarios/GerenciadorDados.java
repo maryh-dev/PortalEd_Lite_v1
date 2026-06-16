@@ -47,10 +47,12 @@ public class GerenciadorDados {
         usuarios.add(new Usuario("3", "Bruno Aluno", "bruno@email.com", "123456", Constantes.TIPO_ALUNO));
 
         // Cursos
-        cursos.add(new Curso("c1", "Android com Java", "Aprenda a criar apps do zero.", "Desenvolvimento", ""));
-        cursos.add(new Curso("c2", "Design UI/UX", "Fundamentos de design para apps.", "Design", ""));
-        cursos.add(new Curso("c3", "Lógica de Programação", "A base para qualquer linguagem.", "Programação", ""));
-        cursos.add(new Curso("c4", "Kotlin para Android", "Migrando do Java para Kotlin.", "Desenvolvimento", ""));
+        cursos.add(new Curso("c1", "Java", "Base sólida para criar sistemas eficientes e escaláveis.", "Desenvolvimento", "java"));
+        cursos.add(new Curso("c2", "Figma", "Transforme ideias em interfaces bonitas e bem pensadas.", "Design", "figma"));
+        cursos.add(new Curso("c3", "Front-end", "Crie interfaces rápidas, responsivas e envolventes.", "Desenvolvimento", "laptop"));
+        cursos.add(new Curso("c4", "Back-end", "Construa a lógica que faz tudo funcionar por trás.", "Desenvolvimento", "backend"));
+        cursos.add(new Curso("c5", "Android", "Desenvolva apps modernos e funcionais para o mundo real.", "Desenvolvimento", "android"));
+        cursos.add(new Curso("c6", "Lógica de Programação", "Aprenda a pensar como um programador e resolver problemas com eficiência.", "Desenvolvimento", "laptop"));
 
         // Aulas para o curso c1
         aulas.add(new Aula("a1", "c1", "Introdução ao Java", "url1", 1));

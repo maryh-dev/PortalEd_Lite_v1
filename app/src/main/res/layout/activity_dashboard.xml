@@ -36,7 +36,7 @@
         android:layout_height="24dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:src="@drawable/ic_menu"
+        android:src="@drawable/ic_conta"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:tint="@color/texto_sobre_azul" />
@@ -149,7 +149,7 @@
 
             <Button
                 android:id="@+id/btnGerenciarUsuarios"
-                style="@style/BotaoPrimario"
+                style="@style/BotaoSecundario"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Gerenciar Usuários" />
