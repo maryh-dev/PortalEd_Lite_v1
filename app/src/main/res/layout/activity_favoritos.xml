@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/fundo"
-    tools:context=".aluno.CursosActivity">
+    tools:context=".aluno.FavoritosActivity">
 
     <!-- TOPO -->
     <View
@@ -24,7 +24,7 @@
         style="@style/TituloTela"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Cursos"
+        android:text="Favoritos"
         app:layout_constraintBottom_toTopOf="@+id/cardBuscar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -60,13 +60,13 @@
                 app:tint="@color/hint_text_color" />
 
             <EditText
-                android:id="@+id/etBuscarCurso"
+                android:id="@+id/etBuscarFavorito"
                 style="@style/TextoCampo"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="8dp"
                 android:background="@android:color/transparent"
-                android:hint="Pesquisar cursos..."
+                android:hint="Pesquisar favoritos..."
                 android:inputType="text"
                 android:singleLine="true" />
 
@@ -74,9 +74,9 @@
 
     </androidx.cardview.widget.CardView>
 
-    <!-- LISTA DE CURSOS -->
+    <!-- LISTA DE FAVORITOS -->
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvCursos"
+        android:id="@+id/rvFavoritos"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="8dp"

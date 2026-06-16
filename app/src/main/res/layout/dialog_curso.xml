@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
@@ -7,9 +8,13 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilTituloCurso"
+        style="@style/CampoTexto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Título do Curso">
+        android:hint="Título do Curso"
+        app:boxStrokeColor="@color/box_stroke_color"
+        app:hintTextColor="@color/hint_text_color">
+
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etTituloCurso"
             style="@style/TextoCampo"
@@ -20,10 +25,14 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilCategoriaCurso"
+        style="@style/CampoTexto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
-        android:hint="Categoria">
+        android:hint="Categoria"
+        app:boxStrokeColor="@color/box_stroke_color"
+        app:hintTextColor="@color/hint_text_color">
+
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etCategoriaCurso"
             style="@style/TextoCampo"
@@ -33,19 +42,41 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tilDescricaoCurso"
+        android:id="@+id/tilProfessorCurso"
+        style="@style/CampoTexto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
-        android:hint="Descrição">
+        android:hint="Nome do Professor"
+        app:boxStrokeColor="@color/box_stroke_color"
+        app:hintTextColor="@color/hint_text_color">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etProfessorCurso"
+            style="@style/TextoCampo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textCapWords" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilDescricaoCurso"
+        style="@style/CampoTexto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:hint="Descrição"
+        app:boxStrokeColor="@color/box_stroke_color"
+        app:hintTextColor="@color/hint_text_color">
+
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etDescricaoCurso"
             style="@style/TextoCampo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="top"
             android:inputType="textMultiLine"
-            android:minLines="3"
-            android:gravity="top" />
+            android:minLines="3" />
     </com.google.android.material.textfield.TextInputLayout>
 
 </LinearLayout>

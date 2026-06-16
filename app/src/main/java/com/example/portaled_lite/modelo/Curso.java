@@ -6,6 +6,10 @@ public class Curso {
     private String descricao;
     private String categoria;
     private String imagemUrl;
+    private String professorNome;
+
+    // Construtor padrão necessário para o Firebase Firestore
+    public Curso() {}
 
     public Curso(String id, String titulo, String descricao, String categoria, String imagemUrl) {
         this.id = id;
@@ -29,4 +33,7 @@ public class Curso {
 
     public String getImagemUrl() { return imagemUrl; }
     public void setImagemUrl(String imagemUrl) { this.imagemUrl = imagemUrl; }
+
+    public String getProfessorNome() { return professorNome; }
+    public void setProfessorNome(String professorNome) { this.professorNome = professorNome; }
 }

@@ -22,9 +22,7 @@ public abstract class BaseAlunoActivity extends AppCompatActivity {
                 startActivity(new Intent(this, CursosActivity.class));
                 return true;
             } else if (id == R.id.nav_favoritos) {
-                Intent intent = new Intent(this, CursosActivity.class);
-                intent.putExtra("EXTRA_FAVORITOS", true);
-                startActivity(intent);
+                startActivity(new Intent(this, FavoritosActivity.class));
                 return true;
             } else if (id == R.id.nav_perfil) {
                 startActivity(new Intent(this, PerfilConfigActivity.class));

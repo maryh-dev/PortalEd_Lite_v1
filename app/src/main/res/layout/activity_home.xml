@@ -26,15 +26,16 @@
         android:layout_marginTop="16dp"
         android:src="@drawable/ic_menu"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/texto_sobre_azul" />
 
     <TextView
         android:id="@+id/tvNomeApp"
+        style="@style/NomeApp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="PortalEd"
-        style="@style/NomeApp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -47,7 +48,8 @@
         android:layout_marginEnd="16dp"
         android:src="@drawable/ic_notificacoes"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/texto_sobre_azul" />
 
     <!-- BARRA DE BUSCA -->
     <androidx.cardview.widget.CardView
@@ -57,7 +59,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="64dp"
         android:layout_marginEnd="16dp"
-        app:cardBackgroundColor="@color/borda_divisoria"
+        app:cardBackgroundColor="@color/superficie"
         app:cardCornerRadius="24dp"
         app:cardElevation="0dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -76,17 +78,19 @@
                 android:id="@+id/ivLupa"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:src="@drawable/ic_search" />
+                android:src="@drawable/ic_search"
+                app:tint="@color/texto_secundario" />
 
             <EditText
                 android:id="@+id/etBuscar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
+                android:background="@android:color/transparent"
                 android:fontFamily="@font/poppins_regular"
                 android:hint="Buscar cursos..."
                 android:inputType="text"
-                android:maxLines="1"
+                android:singleLine="true"
                 android:textColor="@color/texto_principal"
                 android:textSize="14sp" />
 
@@ -94,12 +98,13 @@
 
     </androidx.cardview.widget.CardView>
 
-    <!-- BOTTOM NAVIGATION (fixo no rodapé) -->
+    <!-- BOTTOM NAVIGATION (CORRIGIDA) -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNav"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@color/azul_secundario"
+        android:fitsSystemWindows="true"
         app:itemIconTint="@color/nav_item_color"
         app:itemTextColor="@color/nav_item_color"
         app:labelVisibilityMode="labeled"
@@ -110,13 +115,15 @@
 
     <!-- CONTEÚDO ROLÁVEL -->
     <ScrollView
-        android:id="@+id/scrollView2"
+        android:id="@+id/scrollContent"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@id/bottomNav"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/viewTopo">
+        app:layout_constraintTop_toBottomOf="@id/viewTopo"
+        app:layout_constraintVertical_bias="0.0">
 
         <LinearLayout
             android:layout_width="match_parent"

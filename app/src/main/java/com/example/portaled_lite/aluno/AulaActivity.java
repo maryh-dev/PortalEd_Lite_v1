@@ -1,5 +1,6 @@
 package com.example.portaled_lite.aluno;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -15,18 +16,21 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.portaled_lite.R;
 import com.example.portaled_lite.modelo.Aula;
 import com.example.portaled_lite.utilitarios.Constantes;
-import com.example.portaled_lite.utilitarios.GerenciadorDados;
-import com.example.portaled_lite.utilitarios.GerenciadorSessao;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class AulaActivity extends BaseAlunoActivity {
 
-    private String aulaId;
+    private String aulaId, cursoId;
     private Aula aulaAtual;
     private TextView tvTitulo, tvDescricao;
     private Button btnConcluir, btnProxima;
     private ImageView ivVoltar;
+    private FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,12 +38,15 @@ public class AulaActivity extends BaseAlunoActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_aula);
 
+        db = FirebaseFirestore.getInstance();
         aulaId = getIntent().getStringExtra(Constantes.EXTRA_AULA_ID);
-        if (aulaId == null) { finish(); return; }
+        cursoId = getIntent().getStringExtra(Constantes.EXTRA_CURSO_ID);
+        
+        if (aulaId == null || cursoId == null) { finish(); return; }
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, 0);
             return insets;
         });
 
@@ -57,66 +64,104 @@ public class AulaActivity extends BaseAlunoActivity {
     }
 
     private void carregarDados() {
-        aulaAtual = GerenciadorDados.getInstance().buscarAulaPorId(aulaId);
-        if (aulaAtual == null) { finish(); return; }
+        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-        tvTitulo.setText(aulaAtual.getTitulo());
-        tvDescricao.setText("Esta é a aula " + aulaAtual.getOrdem() + " do curso.");
+        // 1. Buscar dados da aula
+        db.collection("cursos").document(cursoId).collection("aulas").document(aulaId)
+                .get().addOnSuccessListener(documento -> {
+                    aulaAtual = documento.toObject(Aula.class);
+                    if (aulaAtual != null) {
+                        aulaAtual.setId(documento.getId());
+                        aulaAtual.setCursoId(cursoId);
+                        tvTitulo.setText(aulaAtual.getTitulo());
+                        tvDescricao.setText(aulaAtual.getDescricao());
+                        verificarProximaAula();
+                    }
+                });
 
-        String userId = GerenciadorSessao.getInstance().getUsuarioLogado().getId();
-        boolean concluida = GerenciadorDados.getInstance().estaAulaConcluida(userId, aulaId);
-        
-        if (concluida) {
-            btnConcluir.setEnabled(false);
-            btnConcluir.setText("Aula Concluída");
-        }
+        // 2. Verificar se já concluiu
+        db.collection("aulasConcluidas")
+                .whereEqualTo("usuarioId", uid)
+                .whereEqualTo("aulaId", aulaId)
+                .get()
+                .addOnSuccessListener(query -> {
+                    if (!query.isEmpty()) {
+                        btnConcluir.setEnabled(false);
+                        btnConcluir.setText("Aula Concluída");
+                    }
+                });
+    }
 
-        // Verificar próxima aula
-        List<Aula> aulasCurso = GerenciadorDados.getInstance().buscarAulasPorCurso(aulaAtual.getCursoId());
-        Aula proxima = null;
-        for (Aula a : aulasCurso) {
-            if (a.getOrdem() == aulaAtual.getOrdem() + 1) {
-                proxima = a;
-                break;
-            }
-        }
-
-        if (proxima == null) {
-            btnProxima.setVisibility(View.GONE);
-        } else {
-            btnProxima.setVisibility(View.VISIBLE);
-            final String proximaId = proxima.getId();
-            btnProxima.setOnClickListener(v -> {
-                getIntent().putExtra(Constantes.EXTRA_AULA_ID, proximaId);
-                recreate();
-            });
-        }
+    private void verificarProximaAula() {
+        db.collection("cursos").document(cursoId).collection("aulas")
+                .whereEqualTo("ordem", aulaAtual.getOrdem() + 1)
+                .limit(1).get().addOnSuccessListener(q -> {
+                    if (!q.isEmpty()) {
+                        btnProxima.setVisibility(View.VISIBLE);
+                        final String proximaId = q.getDocuments().get(0).getId();
+                        btnProxima.setOnClickListener(v -> {
+                            Intent intent = new Intent(this, AulaActivity.class);
+                            intent.putExtra(Constantes.EXTRA_CURSO_ID, cursoId);
+                            intent.putExtra(Constantes.EXTRA_AULA_ID, proximaId);
+                            startActivity(intent);
+                            finish();
+                        });
+                    } else {
+                        btnProxima.setVisibility(View.GONE);
+                    }
+                });
     }
 
     private void configurarListeners() {
         ivVoltar.setOnClickListener(v -> finish());
 
         btnConcluir.setOnClickListener(v -> {
-            String userId = GerenciadorSessao.getInstance().getUsuarioLogado().getId();
-            GerenciadorDados.getInstance().concluirAula(userId, aulaId);
-            
-            btnConcluir.setEnabled(false);
-            btnConcluir.setText("Aula Concluída");
-            Toast.makeText(this, "Parabéns por concluir mais uma aula!", Toast.LENGTH_SHORT).show();
-            
-            // Se não houver próxima aula, dar parabéns pelo curso
-            List<Aula> aulasCurso = GerenciadorDados.getInstance().buscarAulasPorCurso(aulaAtual.getCursoId());
-            boolean temProxima = false;
-            for (Aula a : aulasCurso) {
-                if (a.getOrdem() == aulaAtual.getOrdem() + 1) {
-                    temProxima = true;
-                    break;
-                }
-            }
-            
-            if (!temProxima) {
-                Toast.makeText(this, "Você concluiu todas as aulas deste curso!", Toast.LENGTH_LONG).show();
-            }
+            String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+            Map<String, Object> conclusao = new HashMap<>();
+            conclusao.put("usuarioId", uid);
+            conclusao.put("cursoId", cursoId);
+            conclusao.put("aulaId", aulaId);
+
+            db.collection("aulasConcluidas").add(conclusao).addOnSuccessListener(ref -> {
+                btnConcluir.setEnabled(false);
+                btnConcluir.setText("Aula Concluída");
+                Toast.makeText(this, "Aula concluída!", Toast.LENGTH_SHORT).show();
+                atualizarProgresso(uid, cursoId);
+            });
         });
+    }
+
+    private void atualizarProgresso(String uid, String cursoId) {
+        db.collection("cursos").document(cursoId).collection("aulas").get()
+                .addOnSuccessListener(todasAulas -> {
+                    int totalAulas = todasAulas.size();
+
+                    db.collection("aulasConcluidas")
+                            .whereEqualTo("usuarioId", uid)
+                            .whereEqualTo("cursoId", cursoId)
+                            .get()
+                            .addOnSuccessListener(concluidas -> {
+                                int totalConcluidas = concluidas.size();
+                                int progresso = (int) ((totalConcluidas * 100.0) / totalAulas);
+
+                                db.collection("matriculas")
+                                        .whereEqualTo("usuarioId", uid)
+                                        .whereEqualTo("cursoId", cursoId)
+                                        .get()
+                                        .addOnSuccessListener(matriculas -> {
+                                            if (!matriculas.isEmpty()) {
+                                                String mId = matriculas.getDocuments().get(0).getId();
+                                                db.collection("matriculas").document(mId)
+                                                        .update("progresso", progresso)
+                                                        .addOnSuccessListener(u -> {
+                                                            if (progresso == 100) {
+                                                                Toast.makeText(this, "Parabéns! Curso concluído!", Toast.LENGTH_LONG).show();
+                                                            }
+                                                        });
+                                            }
+                                        });
+                            });
+                });
     }
 }

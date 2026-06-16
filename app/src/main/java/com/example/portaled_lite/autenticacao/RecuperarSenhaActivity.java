@@ -16,6 +16,7 @@ import com.example.portaled_lite.R;
 import com.example.portaled_lite.utilitarios.GerenciadorDados;
 import com.example.portaled_lite.utilitarios.Validador;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class RecuperarSenhaActivity extends AppCompatActivity {
 
@@ -67,11 +68,15 @@ public class RecuperarSenhaActivity extends AppCompatActivity {
             return;
         }
 
-        if (GerenciadorDados.getInstance().buscarUsuarioPorEmail(email) != null) {
-            Toast.makeText(this, "E-mail de recuperação enviado com sucesso!", Toast.LENGTH_LONG).show();
-            finish();
-        } else {
-            tilEmail.setError("E-mail não encontrado no sistema");
-        }
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+
+        auth.sendPasswordResetEmail(email)
+                .addOnSuccessListener(unused -> {
+                    Toast.makeText(this, "Email de recuperação enviado!", Toast.LENGTH_SHORT).show();
+                    finish();
+                })
+                .addOnFailureListener(e -> {
+                    tilEmail.setError("Email não encontrado");
+                });
     }
 }

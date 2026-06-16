@@ -27,6 +27,11 @@ import com.example.portaled_lite.utilitarios.GerenciadorSessao;
 import com.example.portaled_lite.utilitarios.Validador;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class PerfilConfigActivity extends BaseAlunoActivity {
 
@@ -36,7 +41,8 @@ public class PerfilConfigActivity extends BaseAlunoActivity {
     private Button btnSalvar, btnAlterarSenha, btnSair;
     private SwitchCompat switchNotificacoes, switchModoEscuro;
     private SharedPreferences preferences;
-    private Usuario usuarioLogado;
+    private FirebaseFirestore db;
+    private String uid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,15 +50,16 @@ public class PerfilConfigActivity extends BaseAlunoActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_perfil);
 
-        usuarioLogado = GerenciadorSessao.getInstance().getUsuarioLogado();
-        if (usuarioLogado == null) {
+        db = FirebaseFirestore.getInstance();
+        if (FirebaseAuth.getInstance().getCurrentUser() == null) {
             finish();
             return;
         }
+        uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(android.R.id.content), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, 0);
             return insets;
         });
 
@@ -79,10 +86,16 @@ public class PerfilConfigActivity extends BaseAlunoActivity {
     }
 
     private void preencherDados() {
-        tvNomePerfil.setText(usuarioLogado.getNome());
-        tvEmailPerfil.setText(usuarioLogado.getEmail());
-        etNome.setText(usuarioLogado.getNome());
-        etEmail.setText(usuarioLogado.getEmail());
+        db.collection("usuarios").document(uid).get().addOnSuccessListener(documento -> {
+            if (documento.exists()) {
+                String nome = documento.getString("nome");
+                String email = documento.getString("email");
+                tvNomePerfil.setText(nome);
+                tvEmailPerfil.setText(email);
+                etNome.setText(nome);
+                etEmail.setText(email);
+            }
+        });
 
         switchNotificacoes.setChecked(preferences.getBoolean(Constantes.PREF_NOTIFICACOES, true));
         switchModoEscuro.setChecked(preferences.getBoolean(Constantes.PREF_MODO_ESCURO, false));
@@ -107,61 +120,48 @@ public class PerfilConfigActivity extends BaseAlunoActivity {
         String nome = etNome.getText().toString().trim();
         String email = etEmail.getText().toString().trim();
 
-        boolean valido = true;
-        if (Validador.validarCampoVazio(nome)) {
-            tilNome.setError("Nome não pode ser vazio");
-            valido = false;
-        }
-        if (!Validador.validarEmail(email)) {
-            tilEmail.setError("Email inválido");
-            valido = false;
+        if (nome.isEmpty() || email.isEmpty()) {
+            Toast.makeText(this, "Preencha todos os campos", Toast.LENGTH_SHORT).show();
+            return;
         }
 
-        if (valido) {
-            usuarioLogado.setNome(nome);
-            usuarioLogado.setEmail(email);
+        Map<String, Object> dados = new HashMap<>();
+        dados.put("nome", nome);
+        dados.put("email", email);
+
+        db.collection("usuarios").document(uid).update(dados).addOnSuccessListener(unused -> {
             tvNomePerfil.setText(nome);
             tvEmailPerfil.setText(email);
-            tilNome.setError(null);
-            tilEmail.setError(null);
-            Toast.makeText(this, "Perfil atualizado com sucesso!", Toast.LENGTH_SHORT).show();
-        }
+            Toast.makeText(this, "Perfil atualizado!", Toast.LENGTH_SHORT).show();
+        }).addOnFailureListener(e -> {
+            Toast.makeText(this, "Erro ao salvar: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+        });
     }
 
     private void exibirDialogAlterarSenha() {
         View view = LayoutInflater.from(this).inflate(R.layout.dialog_alterar_senha, null);
-        TextInputLayout tilAtual = view.findViewById(R.id.tilSenhaAtual);
-        TextInputLayout tilNova = view.findViewById(R.id.tilNovaSenha);
-        TextInputLayout tilConfirmar = view.findViewById(R.id.tilConfirmarNovaSenha);
-        TextInputEditText etAtual = view.findViewById(R.id.etSenhaAtual);
         TextInputEditText etNova = view.findViewById(R.id.etNovaSenha);
         TextInputEditText etConfirmar = view.findViewById(R.id.etConfirmarNovaSenha);
 
         new AlertDialog.Builder(this)
                 .setTitle("Alterar Senha")
                 .setView(view)
-                .setPositiveButton("Alterar", (dialog, which) -> {
-                    String atual = etAtual.getText().toString();
-                    String nova = etNova.getText().toString();
-                    String confirmar = etConfirmar.getText().toString();
+                .setPositiveButton("Salvar", (dialog, which) -> {
+                    String nova = etNova.getText().toString().trim();
+                    String confirmar = etConfirmar.getText().toString().trim();
 
-                    if (!usuarioLogado.getSenha().equals(atual)) {
-                        Toast.makeText(this, "Senha atual incorreta", Toast.LENGTH_SHORT).show();
+                    if (nova.isEmpty() || !nova.equals(confirmar)) {
+                        Toast.makeText(this, "As senhas não coincidem ou estão vazias", Toast.LENGTH_SHORT).show();
                         return;
                     }
 
-                    if (!Validador.validarSenha(nova)) {
-                        Toast.makeText(this, "Nova senha deve ter no mínimo 6 caracteres", Toast.LENGTH_SHORT).show();
-                        return;
-                    }
-
-                    if (!nova.equals(confirmar)) {
-                        Toast.makeText(this, "As senhas não coincidem", Toast.LENGTH_SHORT).show();
-                        return;
-                    }
-
-                    usuarioLogado.setSenha(nova);
-                    Toast.makeText(this, "Senha alterada com sucesso!", Toast.LENGTH_SHORT).show();
+                    FirebaseAuth.getInstance().getCurrentUser().updatePassword(nova)
+                            .addOnSuccessListener(unused -> {
+                                Toast.makeText(this, "Senha alterada!", Toast.LENGTH_SHORT).show();
+                            })
+                            .addOnFailureListener(e -> {
+                                Toast.makeText(this, "Erro ao alterar senha. Faça login novamente.", Toast.LENGTH_LONG).show();
+                            });
                 })
                 .setNegativeButton("Cancelar", null)
                 .show();
@@ -169,6 +169,7 @@ public class PerfilConfigActivity extends BaseAlunoActivity {
 
     private void sairDaConta() {
         GerenciadorSessao.getInstance().encerrarSessao();
+        FirebaseAuth.getInstance().signOut();
         Intent intent = new Intent(this, LoginActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);

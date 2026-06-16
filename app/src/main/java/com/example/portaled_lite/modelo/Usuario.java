@@ -7,6 +7,9 @@ public class Usuario {
     private String senha;
     private String tipo; // "aluno" ou "admin"
 
+    // Construtor padrão necessário para o Firebase Firestore
+    public Usuario() {}
+
     public Usuario(String id, String nome, String email, String senha, String tipo) {
         this.id = id;
         this.nome = nome;

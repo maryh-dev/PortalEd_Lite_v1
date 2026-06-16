@@ -22,20 +22,24 @@ import com.example.portaled_lite.utilitarios.GerenciadorDados;
 import com.example.portaled_lite.utilitarios.GerenciadorSessao;
 import com.example.portaled_lite.utilitarios.Validador;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class LoginActivity extends AppCompatActivity {
 
     private TextInputLayout tilEmail, tilSenha;
     private Button btnEntrar;
     private TextView tvEsqueciSenha, tvCriarConta;
+    private FirebaseAuth auth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        auth = FirebaseAuth.getInstance();
 
-        // 1. Verificar sessão ativa
-        if (GerenciadorSessao.getInstance().hasSessaoAtiva()) {
-            navegarParaHome(GerenciadorSessao.getInstance().getUsuarioLogado());
+        // 1. Verificar sessão ativa no Firebase
+        if (auth.getCurrentUser() != null) {
+            navegarParaHomeAutomatico();
             return;
         }
 
@@ -96,13 +100,57 @@ public class LoginActivity extends AppCompatActivity {
 
         if (!valido) return;
 
-        Usuario usuario = GerenciadorDados.getInstance().autenticar(email, senha);
-        if (usuario != null) {
-            GerenciadorSessao.getInstance().setUsuarioLogado(usuario);
-            navegarParaHome(usuario);
-        } else {
-            Toast.makeText(this, "E-mail ou senha incorretos", Toast.LENGTH_SHORT).show();
-        }
+        btnEntrar.setEnabled(false);
+
+        auth.signInWithEmailAndPassword(email, senha)
+                .addOnSuccessListener(authResult -> {
+                    String uid = authResult.getUser().getUid();
+                    FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+                    db.collection("usuarios")
+                            .document(uid)
+                            .get()
+                            .addOnSuccessListener(documento -> {
+                                String tipo = documento.getString("tipo");
+
+                                if ("admin".equals(tipo)) {
+                                    startActivity(new Intent(this, DashboardActivity.class));
+                                } else {
+                                    startActivity(new Intent(this, HomeActivity.class));
+                                }
+                                finish();
+                            })
+                            .addOnFailureListener(e -> {
+                                btnEntrar.setEnabled(true);
+                                Toast.makeText(this, "Erro ao buscar dados do usuário", Toast.LENGTH_SHORT).show();
+                            });
+                })
+                .addOnFailureListener(e -> {
+                    btnEntrar.setEnabled(true);
+                    Toast.makeText(this, "Email ou senha incorretos", Toast.LENGTH_SHORT).show();
+                });
+    }
+
+    private void navegarParaHomeAutomatico() {
+        // Ao abrir o app já logado, verificamos o tipo no Firestore
+        String uid = auth.getCurrentUser().getUid();
+        FirebaseFirestore.getInstance().collection("usuarios")
+                .document(uid)
+                .get()
+                .addOnSuccessListener(documento -> {
+                    String tipo = documento.getString("tipo");
+                    if ("admin".equals(tipo)) {
+                        startActivity(new Intent(this, DashboardActivity.class));
+                    } else {
+                        startActivity(new Intent(this, HomeActivity.class));
+                    }
+                    finish();
+                })
+                .addOnFailureListener(e -> {
+                    // Se falhar ao buscar o tipo, por segurança desloga ou vai para login
+                    auth.signOut();
+                    recreate();
+                });
     }
 
     private void navegarParaHome(Usuario usuario) {

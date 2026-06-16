@@ -4,8 +4,11 @@ public class Aula {
     private String id;
     private String cursoId;
     private String titulo;
+    private String descricao;
     private String videoUrl;
     private int ordem;
+
+    public Aula() {}
 
     public Aula(String id, String cursoId, String titulo, String videoUrl, int ordem) {
         this.id = id;
@@ -23,6 +26,9 @@ public class Aula {
 
     public String getTitulo() { return titulo; }
     public void setTitulo(String titulo) { this.titulo = titulo; }
+
+    public String getDescricao() { return descricao; }
+    public void setDescricao(String descricao) { this.descricao = descricao; }
 
     public String getVideoUrl() { return videoUrl; }
     public void setVideoUrl(String videoUrl) { this.videoUrl = videoUrl; }

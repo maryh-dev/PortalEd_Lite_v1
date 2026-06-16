@@ -23,8 +23,14 @@ import com.example.portaled_lite.modelo.Matricula;
 import com.example.portaled_lite.utilitarios.Constantes;
 import com.example.portaled_lite.utilitarios.GerenciadorDados;
 import com.example.portaled_lite.utilitarios.GerenciadorSessao;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class DetalhesCursoActivity extends BaseAlunoActivity {
 
@@ -48,7 +54,7 @@ public class DetalhesCursoActivity extends BaseAlunoActivity {
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, 0);
             return insets;
         });
 
@@ -69,73 +75,151 @@ public class DetalhesCursoActivity extends BaseAlunoActivity {
     }
 
     private void carregarDados() {
-        Curso curso = GerenciadorDados.getInstance().buscarCursoPorId(cursoId);
-        if (curso == null) { finish(); return; }
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-        tvNome.setText(curso.getTitulo());
-        tvProfessor.setText(curso.getCategoria()); // Exemplo
-        tvDescricao.setText(curso.getDescricao());
-
-        String userId = GerenciadorSessao.getInstance().getUsuarioLogado().getId();
-        
-        // Matrícula
-        estaMatriculado = GerenciadorDados.getInstance().verificarMatricula(userId, cursoId) != null;
-        btnMatricular.setText(estaMatriculado ? "Continuar Estudando" : "Matricular-se");
-
-        // Favorito
-        estaFavoritado = GerenciadorDados.getInstance().verificarFavorito(userId, cursoId);
-        ivFavoritar.setImageResource(estaFavoritado ? android.R.drawable.btn_star_big_on : android.R.drawable.btn_star_big_off);
-
-        // Aulas
-        List<Aula> aulas = GerenciadorDados.getInstance().buscarAulasPorCurso(cursoId);
-        aulaAdapter = new AulaAdapter(position -> {
-            if (estaMatriculado) {
-                Aula aula = aulas.get(position);
-                Intent intent = new Intent(this, AulaActivity.class);
-                intent.putExtra(Constantes.EXTRA_AULA_ID, aula.getId());
-                startActivity(intent);
+        // 1. Detalhes do Curso
+        db.collection("cursos").document(cursoId).get().addOnSuccessListener(documento -> {
+            if (documento.exists()) {
+                Curso curso = documento.toObject(Curso.class);
+                if (curso != null) {
+                    tvNome.setText(curso.getTitulo());
+                    tvProfessor.setText(curso.getProfessorNome());
+                    tvDescricao.setText(curso.getDescricao());
+                }
             } else {
-                Toast.makeText(this, "Matricule-se para acessar as aulas", Toast.LENGTH_SHORT).show();
+                finish();
             }
         });
-        aulaAdapter.atualizarLista(aulas);
-        rvAulas.setAdapter(aulaAdapter);
+
+        // 2. Verificar Matrícula
+        db.collection("matriculas")
+                .whereEqualTo("usuarioId", uid)
+                .whereEqualTo("cursoId", cursoId)
+                .get()
+                .addOnSuccessListener(query -> {
+                    estaMatriculado = !query.isEmpty();
+                    btnMatricular.setText(estaMatriculado ? "Continuar Estudando" : "Matricular-se");
+                    carregarAulas(db);
+                });
+
+        // 3. Verificar Favorito
+        verificarFavorito(uid, cursoId, db);
+    }
+
+    private void carregarAulas(FirebaseFirestore db) {
+        db.collection("cursos")
+                .document(cursoId)
+                .collection("aulas")
+                .orderBy("ordem")
+                .get()
+                .addOnSuccessListener(querySnapshot -> {
+                    List<Aula> listaAulas = new ArrayList<>();
+                    for (DocumentSnapshot doc : querySnapshot.getDocuments()) {
+                        Aula aula = doc.toObject(Aula.class);
+                        if (aula != null) {
+                            aula.setId(doc.getId());
+                            aula.setCursoId(cursoId);
+                            listaAulas.add(aula);
+                        }
+                    }
+                    aulaAdapter = new AulaAdapter(position -> {
+                        if (estaMatriculado) {
+                            Aula aula = listaAulas.get(position);
+                            Intent intent = new Intent(this, AulaActivity.class);
+                            intent.putExtra(Constantes.EXTRA_CURSO_ID, cursoId);
+                            intent.putExtra(Constantes.EXTRA_AULA_ID, aula.getId());
+                            startActivity(intent);
+                        } else {
+                            Toast.makeText(this, "Matricule-se para acessar as aulas", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                    aulaAdapter.atualizarLista(listaAulas);
+                    rvAulas.setAdapter(aulaAdapter);
+                });
+    }
+
+    private void verificarFavorito(String uid, String cursoId, FirebaseFirestore db) {
+        db.collection("favoritos")
+                .whereEqualTo("usuarioId", uid)
+                .whereEqualTo("cursoId", cursoId)
+                .get()
+                .addOnSuccessListener(query -> {
+                    estaFavoritado = !query.isEmpty();
+                    ivFavoritar.setImageResource(estaFavoritado ? android.R.drawable.btn_star_big_on : android.R.drawable.btn_star_big_off);
+                    // Usando cor como sugerido na Parte 16
+                    ivFavoritar.setColorFilter(estaFavoritado ? getColor(R.color.azul_secundario) : getColor(R.color.texto_secundario));
+                    ivFavoritar.setTag(estaFavoritado ? "favoritado" : "nao_favoritado");
+                });
     }
 
     private void configurarListeners() {
         ivVoltar.setOnClickListener(v -> finish());
+        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-        ivFavoritar.setOnClickListener(v -> {
-            String userId = GerenciadorSessao.getInstance().getUsuarioLogado().getId();
-            if (estaFavoritado) {
-                GerenciadorDados.getInstance().desfavoritar(userId, cursoId);
-                estaFavoritado = false;
-                Toast.makeText(this, "Removido dos favoritos", Toast.LENGTH_SHORT).show();
-            } else {
-                GerenciadorDados.getInstance().favoritar(userId, cursoId);
-                estaFavoritado = true;
-                Toast.makeText(this, "Adicionado aos favoritos", Toast.LENGTH_SHORT).show();
-            }
-            ivFavoritar.setImageResource(estaFavoritado ? android.R.drawable.btn_star_big_on : android.R.drawable.btn_star_big_off);
-        });
+        ivFavoritar.setOnClickListener(v -> alternarFavorito(uid, cursoId, db));
 
         btnMatricular.setOnClickListener(v -> {
             if (!estaMatriculado) {
-                String userId = GerenciadorSessao.getInstance().getUsuarioLogado().getId();
-                GerenciadorDados.getInstance().matricular(userId, cursoId);
-                estaMatriculado = true;
-                btnMatricular.setText("Continuar Estudando");
-                aulaAdapter.notifyDataSetChanged();
-                Toast.makeText(this, "Matrícula realizada!", Toast.LENGTH_SHORT).show();
+                Map<String, Object> matricula = new HashMap<>();
+                matricula.put("usuarioId", uid);
+                matricula.put("cursoId", cursoId);
+                matricula.put("progresso", 0);
+
+                db.collection("matriculas")
+                        .add(matricula)
+                        .addOnSuccessListener(ref -> {
+                            estaMatriculado = true;
+                            btnMatricular.setText("Continuar Estudando");
+                            Toast.makeText(this, "Matriculado com sucesso!", Toast.LENGTH_SHORT).show();
+                            carregarAulas(db); // Recarrega para garantir listener atualizado
+                        });
             } else {
-                // Navega para a primeira aula não concluída
-                List<Aula> aulas = GerenciadorDados.getInstance().buscarAulasPorCurso(cursoId);
-                if (!aulas.isEmpty()) {
-                    Intent intent = new Intent(this, AulaActivity.class);
-                    intent.putExtra(Constantes.EXTRA_AULA_ID, aulas.get(0).getId());
-                    startActivity(intent);
-                }
+                // Ir para a última aula ou primeira
+                db.collection("cursos").document(cursoId).collection("aulas")
+                        .orderBy("ordem").limit(1).get().addOnSuccessListener(q -> {
+                            if (!q.isEmpty()) {
+                                Intent intent = new Intent(this, AulaActivity.class);
+                                intent.putExtra(Constantes.EXTRA_CURSO_ID, cursoId);
+                                intent.putExtra(Constantes.EXTRA_AULA_ID, q.getDocuments().get(0).getId());
+                                startActivity(intent);
+                            }
+                        });
             }
         });
+    }
+
+    private void alternarFavorito(String uid, String cursoId, FirebaseFirestore db) {
+        if ("favoritado".equals(ivFavoritar.getTag())) {
+            db.collection("favoritos")
+                    .whereEqualTo("usuarioId", uid)
+                    .whereEqualTo("cursoId", cursoId)
+                    .get()
+                    .addOnSuccessListener(query -> {
+                        for (DocumentSnapshot doc : query.getDocuments()) {
+                            doc.getReference().delete();
+                        }
+                        estaFavoritado = false;
+                        ivFavoritar.setColorFilter(getColor(R.color.texto_secundario));
+                        ivFavoritar.setImageResource(android.R.drawable.btn_star_big_off);
+                        ivFavoritar.setTag("nao_favoritado");
+                        Toast.makeText(this, "Removido dos favoritos", Toast.LENGTH_SHORT).show();
+                    });
+        } else {
+            Map<String, Object> favorito = new HashMap<>();
+            favorito.put("usuarioId", uid);
+            favorito.put("cursoId", cursoId);
+
+            db.collection("favoritos")
+                    .add(favorito)
+                    .addOnSuccessListener(ref -> {
+                        estaFavoritado = true;
+                        ivFavoritar.setColorFilter(getColor(R.color.azul_secundario));
+                        ivFavoritar.setImageResource(android.R.drawable.btn_star_big_on);
+                        ivFavoritar.setTag("favoritado");
+                        Toast.makeText(this, "Adicionado aos favoritos!", Toast.LENGTH_SHORT).show();
+                    });
+        }
     }
 }

@@ -19,7 +19,11 @@ import com.example.portaled_lite.R;
 import com.example.portaled_lite.adaptador.OnAcaoAdminListener;
 import com.example.portaled_lite.adaptador.UsuarioAdapter;
 import com.example.portaled_lite.modelo.Usuario;
-import com.example.portaled_lite.utilitarios.GerenciadorDados;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class GerenciarUsuariosActivity extends AppCompatActivity {
 
@@ -27,12 +31,15 @@ public class GerenciarUsuariosActivity extends AppCompatActivity {
     private UsuarioAdapter adapter;
     private EditText etBuscar;
     private ImageView ivVoltar;
+    private FirebaseFirestore db;
+    private List<Usuario> listaUsuarios = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_gerenciar_usuarios);
+        db = FirebaseFirestore.getInstance();
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -60,11 +67,30 @@ public class GerenciarUsuariosActivity extends AppCompatActivity {
 
             @Override
             public void onExcluirClick(int position) {
-                confirmarRemocao(position);
+                removerUsuario(listaUsuarios.get(position).getId(), position);
             }
         });
-        adapter.atualizarLista(GerenciadorDados.getInstance().listarUsuarios());
         rvUsuarios.setAdapter(adapter);
+        carregarUsuarios();
+    }
+
+    private void carregarUsuarios() {
+        db.collection("usuarios")
+                .get()
+                .addOnSuccessListener(querySnapshot -> {
+                    listaUsuarios.clear();
+                    for (DocumentSnapshot doc : querySnapshot.getDocuments()) {
+                        Usuario usuario = doc.toObject(Usuario.class);
+                        if (usuario != null) {
+                            usuario.setId(doc.getId());
+                            listaUsuarios.add(usuario);
+                        }
+                    }
+                    adapter.atualizarLista(listaUsuarios);
+                })
+                .addOnFailureListener(e -> {
+                    Toast.makeText(this, "Erro ao carregar usuários", Toast.LENGTH_SHORT).show();
+                });
     }
 
     private void configurarListeners() {
@@ -79,16 +105,22 @@ public class GerenciarUsuariosActivity extends AppCompatActivity {
         });
     }
 
-    private void confirmarRemocao(int position) {
-        Usuario usuario = GerenciadorDados.getInstance().listarUsuarios().get(position);
-        
+    private void removerUsuario(String usuarioId, int position) {
         new AlertDialog.Builder(this)
-                .setTitle("Remover Usuário")
-                .setMessage("Deseja realmente remover o usuário '" + usuario.getNome() + "'?")
+                .setTitle("Remover usuário")
+                .setMessage("Tem certeza que deseja remover este usuário?")
                 .setPositiveButton("Remover", (dialog, which) -> {
-                    GerenciadorDados.getInstance().removerUsuario(usuario.getId());
-                    adapter.atualizarLista(GerenciadorDados.getInstance().listarUsuarios());
-                    Toast.makeText(this, "Usuário removido", Toast.LENGTH_SHORT).show();
+                    db.collection("usuarios")
+                            .document(usuarioId)
+                            .delete()
+                            .addOnSuccessListener(unused -> {
+                                listaUsuarios.remove(position);
+                                adapter.atualizarLista(listaUsuarios);
+                                Toast.makeText(this, "Usuário removido", Toast.LENGTH_SHORT).show();
+                            })
+                            .addOnFailureListener(e -> {
+                                Toast.makeText(this, "Erro ao remover usuário", Toast.LENGTH_SHORT).show();
+                            });
                 })
                 .setNegativeButton("Cancelar", null)
                 .show();

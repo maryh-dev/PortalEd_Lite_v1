@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/fundo"
@@ -74,6 +75,7 @@
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/tilNomePerfil"
+                    style="@style/CampoTexto"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Nome"
@@ -90,6 +92,7 @@
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/tilEmailPerfil"
+                    style="@style/CampoTexto"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
@@ -151,7 +154,7 @@
                         android:layout_height="wrap_content"
                         android:checked="true"
                         android:thumbTint="@color/azul_secundario"
-                        android:trackTint="@color/azul_secundario" />
+                        app:trackTint="@color/azul_secundario" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -175,7 +178,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:thumbTint="@color/azul_secundario"
-                        android:trackTint="@color/azul_secundario" />
+                        app:trackTint="@color/azul_secundario" />
                 </LinearLayout>
 
                 <!-- BOTÃO SAIR -->
@@ -192,10 +195,16 @@
         </LinearLayout>
     </ScrollView>
 
+    <!-- BOTTOM NAV (CORRIGIDA) -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNav"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/azul_secundario"
+        android:fitsSystemWindows="true"
+        app:itemIconTint="@color/nav_item_color"
+        app:itemTextColor="@color/nav_item_color"
+        app:labelVisibilityMode="labeled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

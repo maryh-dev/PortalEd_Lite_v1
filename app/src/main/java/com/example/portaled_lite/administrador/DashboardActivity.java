@@ -14,8 +14,9 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.portaled_lite.R;
 import com.example.portaled_lite.autenticacao.LoginActivity;
-import com.example.portaled_lite.utilitarios.GerenciadorDados;
 import com.example.portaled_lite.utilitarios.GerenciadorSessao;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class DashboardActivity extends AppCompatActivity {
 
@@ -55,8 +56,22 @@ public class DashboardActivity extends AppCompatActivity {
     }
 
     private void carregarEstatisticas() {
-        tvTotalAlunos.setText(String.valueOf(GerenciadorDados.getInstance().contarAlunos()));
-        tvTotalCursos.setText(String.valueOf(GerenciadorDados.getInstance().contarCursos()));
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        // contar total de alunos
+        db.collection("usuarios")
+                .whereEqualTo("tipo", "aluno")
+                .get()
+                .addOnSuccessListener(query -> {
+                    tvTotalAlunos.setText(String.valueOf(query.size()));
+                });
+
+        // contar total de cursos
+        db.collection("cursos")
+                .get()
+                .addOnSuccessListener(query -> {
+                    tvTotalCursos.setText(String.valueOf(query.size()));
+                });
     }
 
     private void configurarListeners() {
@@ -70,6 +85,7 @@ public class DashboardActivity extends AppCompatActivity {
 
         ivSair.setOnClickListener(v -> {
             GerenciadorSessao.getInstance().encerrarSessao();
+            FirebaseAuth.getInstance().signOut();
             Intent intent = new Intent(this, LoginActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);

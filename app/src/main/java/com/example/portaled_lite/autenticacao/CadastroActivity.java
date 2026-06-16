@@ -20,16 +20,24 @@ import com.example.portaled_lite.utilitarios.Constantes;
 import com.example.portaled_lite.utilitarios.GerenciadorDados;
 import com.example.portaled_lite.utilitarios.Validador;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
+import java.util.HashMap;
+import java.util.Map;
 
 public class CadastroActivity extends AppCompatActivity {
 
     private TextInputLayout tilNome, tilEmail, tilSenha, tilConfirmarSenha, tilCodigoCriador;
     private RadioGroup rgTipoConta;
     private Button btnCadastrar;
+    private FirebaseAuth auth;
+    private FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        auth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_cadastro);
         
@@ -112,13 +120,36 @@ public class CadastroActivity extends AppCompatActivity {
 
         if (!valido) return;
 
-        Usuario novoUsuario = new Usuario(null, nome, email, senha, tipo);
-        if (GerenciadorDados.getInstance().cadastrarUsuario(novoUsuario)) {
-            Toast.makeText(this, "Cadastro realizado com sucesso!", Toast.LENGTH_SHORT).show();
-            finish();
-        } else {
-            tilEmail.setError("E-mail já cadastrado");
-        }
+        // Mostrar feedback de carregamento (opcional, mas recomendado)
+        btnCadastrar.setEnabled(false);
+
+        auth.createUserWithEmailAndPassword(email, senha)
+                .addOnSuccessListener(authResult -> {
+                    String uid = authResult.getUser().getUid();
+
+                    // Montar os dados do usuário usando Map
+                    Map<String, Object> dadosUsuario = new HashMap<>();
+                    dadosUsuario.put("nome", nome);
+                    dadosUsuario.put("email", email);
+                    dadosUsuario.put("tipo", tipo); // "admin" ou "aluno"
+
+                    // Salvar no Firestore
+                    db.collection("usuarios")
+                            .document(uid)
+                            .set(dadosUsuario)
+                            .addOnSuccessListener(unused -> {
+                                Toast.makeText(this, "Cadastro realizado com sucesso!", Toast.LENGTH_SHORT).show();
+                                finish();
+                            })
+                            .addOnFailureListener(e -> {
+                                btnCadastrar.setEnabled(true);
+                                Toast.makeText(this, "Erro ao salvar dados: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                            });
+                })
+                .addOnFailureListener(e -> {
+                    btnCadastrar.setEnabled(true);
+                    Toast.makeText(this, "Erro no Firebase Auth: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                });
     }
 
     private void adicionarTextWatcher(TextInputLayout til) {

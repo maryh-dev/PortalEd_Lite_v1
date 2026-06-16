@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
@@ -39,6 +38,7 @@
         android:ellipsize="end"
         android:maxLines="1"
         android:text="Título da Aula"
+        android:textColor="@color/texto_sobre_azul"
         app:layout_constraintBottom_toBottomOf="@id/viewTopo"
         app:layout_constraintStart_toEndOf="@id/ivVoltar"
         app:layout_constraintTop_toTopOf="@id/viewTopo" />
@@ -66,11 +66,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/videoAula" />
 
-    <!-- BOTÃO CONCLUIR -->
+    <!-- NAVEGAÇÃO INFERIOR -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNav"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="56dp"
         android:background="@color/azul_secundario"
         app:itemIconTint="@color/nav_item_color"
         app:itemTextColor="@color/nav_item_color"
@@ -82,6 +82,7 @@
 
     <!-- CONTEÚDO ROLÁVEL -->
     <ScrollView
+        android:id="@+id/scrollContent"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@id/bottomNav"

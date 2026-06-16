@@ -4,7 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
-    app:cardCornerRadius="8dp">
+    app:cardBackgroundColor="@color/superficie"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="0dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,7 +20,8 @@
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:background="@color/azul_secundario"
-            android:src="@drawable/ic_perfil" />
+            android:src="@drawable/ic_perfil"
+            app:tint="@color/texto_sobre_azul" />
 
         <LinearLayout
             android:layout_width="0dp"
