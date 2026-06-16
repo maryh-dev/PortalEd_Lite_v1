@@ -9,6 +9,7 @@
     android:background="@color/fundo"
     tools:context=".aluno.HomeActivity">
 
+    <!-- TOPO AZUL -->
     <View
         android:id="@+id/viewTopo"
         android:layout_width="0dp"
@@ -25,9 +26,9 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:src="@drawable/ic_menu"
-        app:tint="@color/texto_sobre_azul"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/texto_sobre_azul" />
 
     <TextView
         android:id="@+id/tvNomeApp"
@@ -49,10 +50,11 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:src="@drawable/ic_notificacoes"
-        app:tint="@color/texto_sobre_azul"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/texto_sobre_azul" />
 
+    <!-- BARRA DE BUSCA -->
     <androidx.cardview.widget.CardView
         android:id="@+id/cardBuscar"
         android:layout_width="0dp"
@@ -96,5 +98,199 @@
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
+
+    <!-- BOTTOM NAVIGATION (fixo no rodapé) -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNav"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/bottom_nav_menu" />
+
+    <!-- CONTEÚDO ROLÁVEL -->
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/bottomNav"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/viewTopo">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- SEÇÃO: CONTINUE ESTUDANDO -->
+            <TextView
+                android:id="@+id/tvContinueEstudando"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="Continue Estudando"
+                android:textColor="@color/texto_secundario"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardContinuarCurso"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                app:cardBackgroundColor="@color/superficie"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="0dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="12dp">
+
+                    <ImageView
+                        android:id="@+id/ivIconeCursoAtual"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:background="@color/azul_secundario"
+                        app:srcCompat="@drawable/ic_java"
+                        app:tint="@color/texto_sobre_azul" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tvNomeCursoAtual"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Java Avançado"
+                            android:textColor="@color/texto_principal"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tvInfoCursoAtual"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="6dp"
+                            android:text="Marco Silva - faltam 1h30"
+                            android:textColor="@color/texto_secundario"
+                            android:textSize="12sp" />
+
+                        <ProgressBar
+                            android:id="@+id/pbProgressoCursoAtual"
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="6dp"
+                            android:max="100"
+                            android:progress="75"
+                            android:progressTint="@color/azul_secundario" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <!-- SEÇÃO: CATEGORIAS (estático, como você já tinha) -->
+            <TextView
+                android:id="@+id/tvCategorias"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="Categorias"
+                android:textColor="@color/texto_secundario"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:orientation="horizontal">
+
+                <!-- Categoria: Tecnologia -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/ivCategoriaTecnologia"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:background="@color/azul_secundario"
+                        android:src="@drawable/ic_computer"
+                        app:tint="@color/texto_sobre_azul" />
+
+                    <TextView
+                        android:id="@+id/tvCategoriaTecnologia"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:text="Tecnologia"
+                        android:textColor="@color/texto_principal"
+                        android:textSize="12sp" />
+
+                </LinearLayout>
+
+                <!-- Categoria: Design -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/ivCategoriaDesign"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:background="@color/azul_primario"
+                        android:src="@drawable/ic_brush"
+                        app:tint="@color/texto_sobre_azul" />
+
+                    <TextView
+                        android:id="@+id/tvCategoriaDesign"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:text="Design"
+                        android:textColor="@color/texto_principal"
+                        android:textSize="12sp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- SEÇÃO: CURSOS RECOMENDADOS (RecyclerView) -->
+            <TextView
+                android:id="@+id/tvRecomendados"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="Cursos Recomendados"
+                android:textColor="@color/texto_secundario"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvRecomendados"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:nestedScrollingEnabled="false"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+        </LinearLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

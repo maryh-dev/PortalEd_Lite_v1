@@ -1,10 +1,125 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/fundo"
     tools:context=".aluno.AulaActivity">
+
+    <!-- TOPO -->
+    <View
+        android:id="@+id/viewTopo"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:background="@drawable/gradiente_topo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/ivVoltar"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="16dp"
+        android:src="@drawable/ic_menu"
+        app:layout_constraintBottom_toBottomOf="@id/viewTopo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/viewTopo"
+        app:tint="@color/texto_sobre_azul" />
+
+    <TextView
+        android:id="@+id/tvTituloAula"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="16dp"
+        android:text="Título da Aula"
+        android:textColor="@color/texto_sobre_azul"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:maxLines="1"
+        android:ellipsize="end"
+        app:layout_constraintBottom_toBottomOf="@id/viewTopo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/ivVoltar"
+        app:layout_constraintTop_toTopOf="@id/viewTopo" />
+
+    <!-- VIDEO -->
+    <VideoView
+        android:id="@+id/videoAula"
+        android:layout_width="0dp"
+        android:layout_height="220dp"
+        android:background="@color/texto_principal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/viewTopo" />
+
+    <!-- BARRA DE PROGRESSO DA AULA -->
+    <ProgressBar
+        android:id="@+id/pbProgressoAula"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="0dp"
+        android:layout_height="4dp"
+        android:max="100"
+        android:progress="0"
+        android:progressTint="@color/azul_secundario"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/videoAula" />
+
+    <!-- BOTÃO CONCLUIR -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNav"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/bottom_nav_menu" />
+
+    <!-- CONTEÚDO ROLÁVEL -->
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/bottomNav"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/pbProgressoAula">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/tvDescricaoAula"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Descrição da aula..."
+                android:textColor="@color/texto_principal"
+                android:textSize="14sp" />
+
+            <Button
+                android:id="@+id/btnConcluirAula"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:backgroundTint="@color/azul_secundario"
+                android:text="Marcar como concluída" />
+
+            <Button
+                android:id="@+id/btnProximaAula"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:backgroundTint="@color/azul_primario"
+                android:text="Próxima Aula" />
+
+        </LinearLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
