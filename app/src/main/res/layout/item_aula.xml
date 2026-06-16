@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="12dp">
+
+    <ImageView
+        android:id="@+id/ivStatusAula"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@android:drawable/checkbox_off_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvTituloAula"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        android:text="Título da Aula"
+        android:textColor="@color/texto_principal"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toStartOf="@+id/ivPlayAula"
+        app:layout_constraintStart_toEndOf="@+id/ivStatusAula"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvDuracaoAula"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="10:00"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/tvTituloAula"
+        app:layout_constraintStart_toStartOf="@+id/tvTituloAula"
+        app:layout_constraintTop_toBottomOf="@+id/tvTituloAula" />
+
+    <ImageView
+        android:id="@+id/ivPlayAula"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@android:drawable/ic_media_play"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

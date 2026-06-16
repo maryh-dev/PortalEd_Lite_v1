@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="TituloTela">
+        <item name="android:textSize">28sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/texto_sobre_azul</item>
+        <item name="android:fontFamily">@font/poppins_bold</item>
+    </style>
+
+    <style name="NomeApp">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/texto_sobre_azul</item>
+        <item name="android:fontFamily">@font/poppins_bold</item>
+    </style>
+
+    <style name="TituloSecao">
+        <item name="android:textSize">13sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/texto_secundario</item>
+        <item name="android:fontFamily">@font/poppins_bold</item>
+    </style>
+
+    <style name="TextoCardTitulo">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/texto_principal</item>
+        <item name="android:fontFamily">@font/poppins_bold</item>
+    </style>
+
+    <style name="TextoCardSecundario">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/texto_secundario</item>
+        <item name="android:fontFamily">@font/poppins_regular</item>
+    </style>
+
+    <style name="BotaoPrimario">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/texto_sobre_azul</item>
+        <item name="android:backgroundTint">@color/azul_secundario</item>
+        <item name="android:fontFamily">@font/poppins_bold</item>
+        <item name="cornerRadius">24dp</item>
+    </style>
+
+    <style name="BotaoSecundario">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/texto_sobre_azul</item>
+        <item name="android:backgroundTint">@color/azul_primario</item>
+        <item name="android:fontFamily">@font/poppins_bold</item>
+        <item name="cornerRadius">24dp</item>
+    </style>
+
+    <style name="BotaoDanger">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/texto_sobre_azul</item>
+        <item name="android:backgroundTint">#D32F2F</item>
+        <item name="android:fontFamily">@font/poppins_bold</item>
+        <item name="cornerRadius">24dp</item>
+    </style>
+
+    <style name="TextoLink">
+        <item name="android:textSize">13sp</item>
+        <item name="android:textColor">@color/texto_secundario</item>
+        <item name="android:fontFamily">@font/poppins_regular</item>
+    </style>
+
+    <style name="TextoCampo">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/texto_principal</item>
+        <item name="android:fontFamily">@font/poppins_regular</item>
+    </style>
+
+</resources>
