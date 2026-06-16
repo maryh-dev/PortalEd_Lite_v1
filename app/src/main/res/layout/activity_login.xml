@@ -47,10 +47,10 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etEmail"
+            style="@style/TextoCampo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="text|textEmailAddress"
-            android:textColor="@color/texto_principal" />
+            android:inputType="text|textEmailAddress" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -73,52 +73,43 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etSenha"
+            style="@style/TextoCampo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="text|textPassword"
-            android:textColor="@color/texto_principal" />
+            android:inputType="text|textPassword" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/btnEntrar"
+        style="@style/BotaoPrimario"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="24dp"
-        android:backgroundTint="@color/azul_secundario"
-        android:fontFamily="@font/poppins_bold"
         android:text="Entrar"
-        android:textColor="@color/texto_sobre_azul"
-        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tilSenha" />
 
     <TextView
         android:id="@+id/tvEsqueciSenha"
+        style="@style/TextoLink"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:fontFamily="@font/poppins_regular"
         android:text="Esqueceu a senha?"
-        android:textColor="@color/azul_secundario"
-        android:textSize="14sp"
-        android:textStyle="normal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnEntrar" />
 
     <TextView
         android:id="@+id/tvCriarConta"
+        style="@style/TextoLink"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:fontFamily="@font/poppins_regular"
         android:text="Criar nova conta"
-        android:textColor="@color/azul_secundario"
-        android:textSize="14sp"
-        android:textStyle="normal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvEsqueciSenha" />

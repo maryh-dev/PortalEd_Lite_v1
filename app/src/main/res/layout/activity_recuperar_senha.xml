@@ -18,12 +18,10 @@
 
     <TextView
         android:id="@+id/tvTituloRecuperar"
+        style="@style/TituloTela"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/poppins_bold"
         android:text="Recuperar Senha"
-        android:textColor="@color/texto_sobre_azul"
-        android:textSize="28sp"
         app:layout_constraintBottom_toBottomOf="@+id/viewTopoRecuperar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/viewTopoRecuperar"
@@ -31,15 +29,13 @@
 
     <TextView
         android:id="@+id/tvInstrucao"
+        style="@style/TextoCardSecundario"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="24dp"
         android:text="Enviaremos um link de recuperação para o email cadastrado."
-        android:fontFamily="@font/poppins_regular"
-        android:textColor="@color/azul_secundario"
-        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/viewTopoRecuperar" />
@@ -63,24 +59,21 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etEmailRecuperacao"
+            style="@style/TextoCampo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textEmailAddress"
-            android:textColor="@color/texto_principal" />
+            android:inputType="textEmailAddress" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/btnEnviar"
+        style="@style/BotaoPrimario"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="24dp"
-        android:backgroundTint="@color/azul_secundario"
         android:text="Enviar"
-        android:fontFamily="@font/poppins_bold"
-        android:textSize="16dp"
-        android:textColor="@color/texto_sobre_azul"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tilEmailRecuperacao" />

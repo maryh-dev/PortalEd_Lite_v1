@@ -32,13 +32,11 @@
 
     <TextView
         android:id="@+id/tvNomeApp"
+        style="@style/NomeApp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="PortalEd"
-        android:textColor="@color/texto_sobre_azul"
-        android:textSize="18sp"
-        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -86,14 +84,13 @@
 
             <EditText
                 android:id="@+id/etBuscar"
+                style="@style/TextoCampo"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="8dp"
                 android:background="@android:color/transparent"
                 android:hint="Buscar cursos, aulas..."
-                android:singleLine="true"
-                android:textColor="@color/texto_principal"
-                android:textColorHint="@color/texto_secundario" />
+                android:singleLine="true" />
 
         </LinearLayout>
 
@@ -127,13 +124,11 @@
             <!-- SEÇÃO: CONTINUE ESTUDANDO -->
             <TextView
                 android:id="@+id/tvContinueEstudando"
+                style="@style/TituloSecao"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                android:text="Continue Estudando"
-                android:textColor="@color/texto_secundario"
-                android:textSize="13sp"
-                android:textStyle="bold" />
+                android:text="Continue Estudando" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardContinuarCurso"
@@ -168,20 +163,18 @@
 
                         <TextView
                             android:id="@+id/tvNomeCursoAtual"
+                            style="@style/TextoCardTitulo"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Java Avançado"
-                            android:textColor="@color/texto_principal"
-                            android:textStyle="bold" />
+                            android:text="Java Avançado" />
 
                         <TextView
                             android:id="@+id/tvInfoCursoAtual"
+                            style="@style/TextoCardSecundario"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="6dp"
-                            android:text="Marco Silva - faltam 1h30"
-                            android:textColor="@color/texto_secundario"
-                            android:textSize="12sp" />
+                            android:text="Marco Silva - faltam 1h30" />
 
                         <ProgressBar
                             android:id="@+id/pbProgressoCursoAtual"
@@ -201,13 +194,11 @@
             <!-- SEÇÃO: CATEGORIAS (estático, como você já tinha) -->
             <TextView
                 android:id="@+id/tvCategorias"
+                style="@style/TituloSecao"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                android:text="Categorias"
-                android:textColor="@color/texto_secundario"
-                android:textSize="13sp"
-                android:textStyle="bold" />
+                android:text="Categorias" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -236,6 +227,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="6dp"
+                        android:fontFamily="@font/poppins_regular"
                         android:text="Tecnologia"
                         android:textColor="@color/texto_principal"
                         android:textSize="12sp" />
@@ -263,6 +255,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="6dp"
+                        android:fontFamily="@font/poppins_regular"
                         android:text="Design"
                         android:textColor="@color/texto_principal"
                         android:textSize="12sp" />
@@ -274,13 +267,11 @@
             <!-- SEÇÃO: CURSOS RECOMENDADOS (RecyclerView) -->
             <TextView
                 android:id="@+id/tvRecomendados"
+                style="@style/TituloSecao"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                android:text="Cursos Recomendados"
-                android:textColor="@color/texto_secundario"
-                android:textSize="13sp"
-                android:textStyle="bold" />
+                android:text="Cursos Recomendados" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvRecomendados"

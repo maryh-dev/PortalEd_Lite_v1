@@ -21,13 +21,11 @@
 
     <TextView
         android:id="@+id/tvTitulo"
+        style="@style/TituloTela"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="Painel Administrativo"
-        android:textColor="@color/texto_sobre_azul"
-        android:textSize="18sp"
-        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -85,17 +83,16 @@
                             android:id="@+id/tvTotalAlunos"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_bold"
                             android:text="0"
                             android:textColor="@color/azul_secundario"
-                            android:textSize="28sp"
-                            android:textStyle="bold" />
+                            android:textSize="28sp" />
 
                         <TextView
+                            style="@style/TextoCardSecundario"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Alunos"
-                            android:textColor="@color/texto_secundario"
-                            android:textSize="12sp" />
+                            android:text="Alunos" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -119,17 +116,16 @@
                             android:id="@+id/tvTotalCursos"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_bold"
                             android:text="0"
                             android:textColor="@color/azul_secundario"
-                            android:textSize="28sp"
-                            android:textStyle="bold" />
+                            android:textSize="28sp" />
 
                         <TextView
+                            style="@style/TextoCardSecundario"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Cursos"
-                            android:textColor="@color/texto_secundario"
-                            android:textSize="12sp" />
+                            android:text="Cursos" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -137,27 +133,25 @@
 
             <!-- AÇÕES -->
             <TextView
+                style="@style/TituloSecao"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                android:text="Ações"
-                android:textColor="@color/texto_secundario"
-                android:textSize="13sp"
-                android:textStyle="bold" />
+                android:text="Ações" />
 
             <Button
                 android:id="@+id/btnGerenciarCursos"
+                style="@style/BotaoPrimario"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                android:backgroundTint="@color/azul_secundario"
                 android:text="Gerenciar Cursos" />
 
             <Button
                 android:id="@+id/btnGerenciarUsuarios"
+                style="@style/BotaoSecundario"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/azul_primario"
                 android:text="Gerenciar Usuários" />
 
         </LinearLayout>

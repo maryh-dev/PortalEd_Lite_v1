@@ -71,49 +71,45 @@
 
             <TextView
                 android:id="@+id/tvNomeCurso"
+                style="@style/TextoCardTitulo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Nome do Curso"
-                android:textColor="@color/texto_principal"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                android:text="Nome do Curso" />
 
             <TextView
                 android:id="@+id/tvProfessorCurso"
+                style="@style/TextoCardSecundario"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:text="Professor"
-                android:textColor="@color/texto_secundario"
-                android:textSize="14sp" />
+                android:text="Professor" />
 
             <TextView
                 android:id="@+id/tvDescricaoCurso"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
+                android:fontFamily="@font/poppins_regular"
                 android:text="Descrição do curso..."
                 android:textColor="@color/texto_principal"
                 android:textSize="14sp" />
 
             <Button
                 android:id="@+id/btnMatricular"
+                style="@style/BotaoPrimario"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:backgroundTint="@color/azul_secundario"
                 android:text="Matricular-se" />
 
             <TextView
                 android:id="@+id/tvAulas"
+                style="@style/TituloSecao"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="8dp"
-                android:text="Aulas"
-                android:textColor="@color/texto_secundario"
-                android:textSize="13sp"
-                android:textStyle="bold" />
+                android:text="Aulas" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvAulas"

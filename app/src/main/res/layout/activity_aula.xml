@@ -32,14 +32,12 @@
 
     <TextView
         android:id="@+id/tvTituloAula"
+        style="@style/TextoCardTitulo"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="16dp"
         android:text="Título da Aula"
-        android:textColor="@color/texto_sobre_azul"
-        android:textSize="16sp"
-        android:textStyle="bold"
         android:maxLines="1"
         android:ellipsize="end"
         app:layout_constraintBottom_toBottomOf="@id/viewTopo"
@@ -99,24 +97,25 @@
                 android:id="@+id/tvDescricaoAula"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_regular"
                 android:text="Descrição da aula..."
                 android:textColor="@color/texto_principal"
                 android:textSize="14sp" />
 
             <Button
                 android:id="@+id/btnConcluirAula"
+                style="@style/BotaoPrimario"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:backgroundTint="@color/azul_secundario"
                 android:text="Marcar como concluída" />
 
             <Button
                 android:id="@+id/btnProximaAula"
+                style="@style/BotaoSecundario"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:backgroundTint="@color/azul_primario"
                 android:text="Próxima Aula" />
 
         </LinearLayout>

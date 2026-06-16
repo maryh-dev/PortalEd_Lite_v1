@@ -32,13 +32,11 @@
 
     <TextView
         android:id="@+id/tvTitulo"
+        style="@style/TituloTela"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="Gerenciar Usuários"
-        android:textColor="@color/texto_sobre_azul"
-        android:textSize="18sp"
-        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -74,14 +72,13 @@
 
             <EditText
                 android:id="@+id/etBuscarUsuario"
+                style="@style/TextoCampo"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="8dp"
                 android:background="@android:color/transparent"
                 android:hint="Buscar usuário..."
-                android:singleLine="true"
-                android:textColor="@color/texto_principal"
-                android:textColorHint="@color/texto_secundario" />
+                android:singleLine="true" />
 
         </LinearLayout>
 
