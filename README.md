@@ -26,7 +26,7 @@ Desenvolver uma plataforma educacional que permita aos usuários:
 - Android Studio
 
 **Banco de Dados**
-- MySQL
+- Firebase
 
 **Controle de Versão**
 - Git
